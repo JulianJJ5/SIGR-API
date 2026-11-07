@@ -1,8 +1,8 @@
 // Validaciones de la API. Cada función devuelve un objeto { campo: "mensaje" };
 // si está vacío, los datos son válidos. Repiten las reglas de negocio del SIGR.
-import { fechaLocal } from "../src/db/storage.js";
-import { HORARIO } from "../src/services/reservas.js";
-import { ESTADOS } from "../src/services/pedidos.js";
+import { fechaLocal } from "./negocio/util.js";
+import { HORARIO } from "./negocio/reservas.js";
+import { ESTADOS } from "./negocio/pedidos.js";
 
 const aMinutos = (hora) => {
   const [h, m] = hora.split(":").map(Number);

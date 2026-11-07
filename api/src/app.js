@@ -1,14 +1,14 @@
 // API REST del SIGR (v1.2.0). Datos en memoria: se pierden al reiniciar el servidor.
-// Reutiliza la lógica de negocio de src/services, así la página y la API aplican las mismas reglas.
+// La lógica de negocio está en src/negocio (copia de las reglas del front), así la página y la API validan igual.
 import express from "express";
 import cors from "cors";
 import path from "node:path";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
-import { datosIniciales } from "../src/db/seed.js";
-import * as menu from "../src/services/menu.js";
-import { crearReserva, mesasDisponibles } from "../src/services/reservas.js";
-import { crearPedido, avanzarEstado, cancelarPedido, ESTADOS } from "../src/services/pedidos.js";
+import { datosIniciales } from "./negocio/seed.js";
+import * as menu from "./negocio/menu.js";
+import { crearReserva, mesasDisponibles } from "./negocio/reservas.js";
+import { crearPedido, avanzarEstado, cancelarPedido, ESTADOS } from "./negocio/pedidos.js";
 import {
   validarPlato, validarCategoria, validarReserva, validarPedido, ESTADOS_PEDIDO, ESTADOS_RESERVA,
 } from "./validacion.js";
@@ -164,8 +164,8 @@ export function crearApp() {
     res.status(404).json({ error: `La ruta ${req.method} ${req.originalUrl} no existe`, campos: {} });
   });
 
-  // La API también sirve la página compilada (npm run build) en http://localhost:3200.
-  const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "dist");
+  // La API también sirve el front compilado (cd frontend && npm run build) en http://localhost:3200.
+  const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "frontend", "dist");
   if (fs.existsSync(dist)) app.use(express.static(dist));
 
   // Manejo central de errores: JSON malformado, errores de la API y errores inesperados.

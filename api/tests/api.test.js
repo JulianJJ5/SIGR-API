@@ -1,8 +1,8 @@
 // Pruebas de integración de la API REST: levantan el servidor en un puerto libre y lo consultan con fetch.
 import { test, before, after, beforeEach } from "node:test";
 import assert from "node:assert/strict";
-import { crearApp } from "../server/app.js";
-import { fechaLocal } from "../src/db/storage.js";
+import { crearApp } from "../src/app.js";
+import { fechaLocal } from "../src/negocio/util.js";
 
 let servidor;
 let base;
